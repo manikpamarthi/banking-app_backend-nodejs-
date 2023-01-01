@@ -9,4 +9,4 @@ const runQuery = async (query, params) => {
   return rows;
 };
 
-module.exports = { runQuery };
+module.exports = { runQuery, pool };

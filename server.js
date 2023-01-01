@@ -5,14 +5,19 @@ const bodyParser = require("body-parser");
 const logger = require("morgan");
 const debug = require("debug")("nodejs-postgresql:server");
 const http = require("http");
+const cors = require("cors");
 
 const indexRouter = require("./index.js");
 const quotesRouter = require("./Routes/quotes");
+const transactionRouter = require("./Routes/amountTransaction");
+const loginRouter = require("./Routes/login");
+const deactiveUserRouter = require("./Routes/deactivateUser");
 
 const app = express();
 
 app.use(logger("dev"));
 app.use(express.json());
+app.use(cors());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(bodyParser.json());
@@ -20,6 +25,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use("/", indexRouter);
 app.use("/quotes", quotesRouter);
+app.use("/transaction", transactionRouter);
+app.use("/login", loginRouter);
+app.use("/deactiveuser", deactiveUserRouter);
 
 /**
  * Normalize a port into a number, string, or false.
